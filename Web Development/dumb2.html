@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS</title>
+  </head>
+  <body>
+    <h3>Marks Report</h3>
+    <label>RollNo</label> <br />
+    <input type="text" id="rno" /> <br />
+    <label>Name</label> <br />
+    <input type="text" id="sna" /> <br />
+    <label>HTML</label> <br />
+    <input type="text" id="hm" /> <br />
+    <label>CSS</label> <br />
+    <input type="text" id="cm" /> <br />
+    <label>JavaScript</label> <br />
+    <input type="text" id="jm" /> <br />
+    <button onclick="getResult()">get result</button> <br />
+    <br />
+    <output id="total"></output> <br />
+    <output id="average"></output> <br />
+    <output id="grade"></output> <br />
+    <script>
+      function getResult() {
+        let h, c, j, tot, avg, grd;
+        h = +hm.value;
+        c = +cm.value;
+        j = +jm.value;
+        tot = h + c + j;
+        avg = tot / 3;
+        if (h > 39 && c > 39 && j > 39) {
+          if (avg >= 90) grd = "A+";
+          else if (avg >= 80) grd = "A";
+          else if (avg >= 70) grd = "B+";
+          else if (avg >= 60) grd = "B";
+          else if (avg >= 50) grd = "C";
+          else grd = "D";
+        } else grd = "Fail";
+        total.value = "Total Marks :" + tot;
+        average.value = "Average :" + avg + "%";
+        grade.value = "Grade :" + grd;
+      }
+    </script>
+  </body>
+</html>

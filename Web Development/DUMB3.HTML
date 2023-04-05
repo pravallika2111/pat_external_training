@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Email List Subscribe Form</title>
+  </head>
+  <script>
+    const APIURL = "http://localhost:3000";
+    const subscribe = data => {
+    return fetch('${APIURL}/subscribers', {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    headers: {
+    "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+    }).then(response => response.json());
+    };
+    window.onload = () => {
+    const nameForm = document.forms.nameForm;
+    nameForm.method = "post";
+    nameForm.target = "_blank";
+    nameForm.action = "";
+    nameForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const email = document.getElementById("email").value;
+    let errors = [];
+    if (!firstName) {
+    errors.push("First name is required.");
+    }
+    if (!lastName) {
+    errors.push("Last name is required.");
+    }
+    if (!email) {
+    errors.push("Email is required.");
+    }
+    if (!/[^@]+@[^\.]+\..+/.test(email)) {
+    errors.push("Email is invalid.");
+    }
+    if (errors.length > 0) {
+    alert(errors.join(" "));
+    return;
+    }
+    subscribe({
+    firstName,
+    lastName,
+    email
+    }).then(response => {
+    alert('${response.firstName} ${response.lastName} has subscribed');
+    });
+    });
+    };
+  </script>
+  <body>
+    <h1>Email List Subscribe Form</h1>
+    <form action="" name="nameForm" id="nameForm" method="post">
+      <label for="firstName">First Name: </label>
+      <input type="text" name="firstName" id="firstName" /><br />
+      <label for="lastName">Last Name: </label>
+      <input type="text" name="lastName" id="lastName" /><br />
+      <label for="email">Email: </label>
+      <input type="text" name="email" id="email" /><br />
+      <input type="submit" value="Subscribe" />
+    </form>
+    <script src="script.js"></script>
+  </body>
+</html>
